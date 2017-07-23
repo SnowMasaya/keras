@@ -57,9 +57,12 @@ def make_shift_matrix(x,
     :param img_row_axis: Index of axis for rows in the input tensor.
     :param img_col_axis: Index of axis for cols in the input tensor.
     :param img_depth_axis: Index of axis for depth in the input tensor.
-    :param height_shift_range: height shift range, as a float fraction of the height.
-    :param width_shift_range: Width shift range, as a float fraction of the width.
-    :param depth_shift_range: Depth shift range, as a float fraction of the depth.
+    :param height_shift_range: Height shift range, as
+                               a float fraction of the height.
+    :param width_shift_range: Width shift range, as
+                              a float fraction of the width.
+    :param depth_shift_range: Depth shift range, as
+                              a float fraction of the depth.
     :return: shift matrix
     """
     tx = ty = tz = 0
@@ -96,9 +99,8 @@ def setting_shift_range(input_x, axis, range_value):
 
 def make_shear_matrix(shear_range, shear_value):
     """Make a random spatial shear matrix
-
     :param shear_range: Transformation intensity range
-    :param shear_value: Transformation intensity value 
+    :param shear_value: Transformation intensity value
     :return: shear matrix
     """
     if shear_range != 0.0:
@@ -161,9 +163,9 @@ def transform_matrix_offset_center(matrix, x, y, z):
 def apply_transform(x, transform_matrix, channel_axis=0, fill_mode='nearest',
                     cval=0.):
     """Apply the 3d data transformation specified by a matrix
-    
-    :param x: 3d numpy array single data 
-    :param transform_matrix: Numpy array specifying the geometric transformation
+    :param x: 3d numpy array single data
+    :param transform_matrix: Numpy array specifying
+                             the geometric transformation
     :param channel_axis: Index of axis for channels in the input tensor.
     :param fill_mode: Points outside the boundaries of the input
             are filled according to the given mode
@@ -215,12 +217,11 @@ def flip_method(flip_limit_value, x,
                 img_depth_axis,
                 horizontal_flip,
                 vertical_flip,
-                depth_flip
+                depth_flip,
                 ):
     """Apply flip for 3d data
-    
     :param flip_limit_value:
-    :param x: 3d numpy array single data 
+    :param x: 3d numpy array single data
     :param img_col_axis: Index of axis for cols in the input tensor.
     :param img_row_axis: Index of axis for rows in the input tensor.
     :param img_depth_axis: Index of axis for depth in the input tensor.
@@ -438,9 +439,9 @@ class Image3DDataGenerator(ImageDataGenerator):
         self.rescale = rescale
         self.preprocessing_function = preprocessing_function
 
-        if data_format not in {'channels_last', 'channels_first'}:
-            raise ValueError('data_format should be "channels_last" (channel after row and '
-                             'column) or "channels_first" (channel before row and column). '
+        if data_format not in {'channels_last', 'channels_first'}:  # noqa
+            raise ValueError('data_format should be "channels_last" (channel after row and '  # noqa
+                             'column) or "channels_first" (channel before row and column). '  # noqa
                              'Received arg: ', data_format)
         self.data_format = data_format
         if data_format == 'channels_first':
@@ -528,12 +529,12 @@ class Image3DDataGenerator(ImageDataGenerator):
 
         if x.shape[self.channel_axis] not in {1, 3, 4}:
             warnings.warn(
-                'Expected input to be images (as Numpy array) '
-                'following the data format convention "' + self.data_format + '" '
-                '(channels on axis ' + str(self.channel_axis) + '), i.e. expected '
-                'either 1, 3 or 4 channels on axis ' + str(self.channel_axis) + '. '
-                'However, it was passed an array with shape ' + str(x.shape) +
-                ' (' + str(x.shape[self.channel_axis]) + ' channels).')
+                'Expected input to be images (as Numpy array) '  # noqa
+                'following the data format convention "' + self.data_format + '" '  # noqa
+                '(channels on axis ' + str(self.channel_axis) + '), i.e. expected '  # noqa
+                'either 1, 3 or 4 channels on axis ' + str(self.channel_axis) + '. '  # noqa
+                'However, it was passed an array with shape ' + str(x.shape) +  # noqa
+                ' (' + str(x.shape[self.channel_axis]) + ' channels).')  # noqa
 
         if seed is not None:
             np.random.seed(seed)
